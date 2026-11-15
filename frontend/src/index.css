@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white bg-opacity-20 backdrop-blur-lg border border-white border-opacity-30 shadow-glass rounded-2xl;
+  }
+  .glass-nav {
+    @apply bg-skyBlue bg-opacity-80 backdrop-blur-md border-t border-white border-opacity-40 shadow-[0_-8px_32px_rgba(135,206,235,0.4)];
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Custom Splash Screen Animations */
+@keyframes splash-pulse {
+  0%, 100% {
+    transform: scale(1.0);
+    filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3));
+  }
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.6));
+  }
+}
+
+@keyframes splash-fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splash-line {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-splash-logo {
+  animation: splash-pulse 2.2s infinite ease-in-out;
+}
+
+.animate-splash-text {
+  animation: splash-fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-splash-line {
+  animation: splash-line 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
