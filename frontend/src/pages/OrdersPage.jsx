@@ -4,6 +4,7 @@ import { ShopContext } from '../context/ShopContext';
 import { AuthContext } from '../context/AuthContext';
 import { FiChevronLeft, FiBox, FiCheckCircle, FiRefreshCw } from 'react-icons/fi';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 const OrdersPage = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const OrdersPage = () => {
   const loadOrders = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`http://${window.location.hostname}:5000/api/orders`);
+      const response = await axios.get(`${API_BASE_URL}/orders`);
       setOrders(response.data);
       if (refetchOrders) refetchOrders();
     } catch (error) {

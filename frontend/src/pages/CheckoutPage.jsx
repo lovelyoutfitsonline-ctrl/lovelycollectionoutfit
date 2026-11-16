@@ -5,6 +5,7 @@ import { ShopContext } from '../context/ShopContext';
 import { FiChevronLeft, FiMapPin, FiCheck, FiChevronRight, FiShield, FiLoader, FiX, FiFileText } from 'react-icons/fi';
 import { io } from 'socket.io-client';
 import axios from 'axios';
+import { BACKEND_URL, API_BASE_URL } from '../config';
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const CheckoutPage = () => {
   // Listen for real-time order confirmation from Socket.IO room
   useEffect(() => {
     if (user?.phone) {
-      const socket = io(`http://${window.location.hostname}:5000`);
+      const socket = io(BACKEND_URL);
       
       socket.emit('join-room', user.phone);
       console.log(`[SOCKET] Joined room: ${user.phone}`);
@@ -84,7 +85,7 @@ const CheckoutPage = () => {
 
     try {
       // 1. Create a secure payment order in the backend
-      const response = await axios.post(`http://${window.location.hostname}:5000/api/create-order`, {
+      const response = await axios.post(`${API_BASE_URL}/create-order`, {
         cart,
         customerDetails: formData
       });
@@ -109,7 +110,7 @@ const CheckoutPage = () => {
 
           try {
             // STEP 3: Send razorpay_payment_id, razorpay_order_id, razorpay_signature to backend verify endpoint
-            const verifyRes = await axios.post(`http://${window.location.hostname}:5000/api/verify-payment`, {
+            const verifyRes = await axios.post(`${API_BASE_URL}/verify-payment`, {
               razorpay_order_id: payResponse.razorpay_order_id,
               razorpay_payment_id: payResponse.razorpay_payment_id,
               razorpay_signature: payResponse.razorpay_signature

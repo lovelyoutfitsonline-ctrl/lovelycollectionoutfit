@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BACKEND_URL, API_BASE_URL } from '../config';
 
 const BannerSlider = () => {
   const [banners, setBanners] = useState([]);
@@ -8,13 +9,13 @@ const BannerSlider = () => {
 
   const fixLocalhostUrl = (url) => {
     if (!url) return url;
-    return url.replace(/localhost|127\.0\.0\.1/g, window.location.hostname);
+    return url.replace(/http:\/\/localhost:5000|http:\/\/127\.0\.0\.1:5000/g, BACKEND_URL);
   };
 
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        const response = await axios.get(`http://${window.location.hostname}:5000/api/banners`);
+        const response = await axios.get(`${API_BASE_URL}/banners`);
         const fixedBanners = response.data.map(banner => ({
           ...banner,
           image: fixLocalhostUrl(banner.image)

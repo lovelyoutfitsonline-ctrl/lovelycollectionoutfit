@@ -1,10 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { calculateCartTotals } from '../utils/cartUtils';
 import axios from 'axios';
+import { BACKEND_URL, API_BASE_URL } from '../config';
 
 export const ShopContext = createContext();
 
-const API_URL = `http://${window.location.hostname}:5000/api/products`;
+const API_URL = `${API_BASE_URL}/products`;
 
 export const ShopProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -18,14 +19,14 @@ export const ShopProvider = ({ children }) => {
 
   const fixLocalhostUrl = (url) => {
     if (!url) return url;
-    return url.replace(/localhost|127\.0\.0\.1/g, window.location.hostname);
+    return url.replace(/http:\/\/localhost:5000|http:\/\/127\.0\.0\.1:5000/g, BACKEND_URL);
   };
 
   // Fetch categories from MongoDB
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`http://${window.location.hostname}:5000/api/categories`);
+        const response = await axios.get(`${API_BASE_URL}/categories`);
         const fixedCategories = response.data.map(cat => ({
           ...cat,
           image: fixLocalhostUrl(cat.image)
@@ -66,7 +67,7 @@ export const ShopProvider = ({ children }) => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get(`http://${window.location.hostname}:5000/api/notifications`);
+        const response = await axios.get(`${API_BASE_URL}/notifications`);
         setNotifications(response.data);
       } catch (error) {
         console.error("Error fetching notifications:", error);
@@ -77,7 +78,7 @@ export const ShopProvider = ({ children }) => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`http://${window.location.hostname}:5000/api/orders`);
+      const response = await axios.get(`${API_BASE_URL}/orders`);
       setOrders(response.data);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -93,7 +94,7 @@ export const ShopProvider = ({ children }) => {
 
   const markNotificationsAsRead = async () => {
     try {
-      await axios.put(`http://${window.location.hostname}:5000/api/notifications/read-all`);
+      await axios.put(`${API_BASE_URL}/notifications/read-all`);
       setNotifications(prev => prev.map(n => ({ ...n, read: true })));
     } catch (error) {
       console.error("Error marking notifications as read:", error);
@@ -193,7 +194,7 @@ export const ShopProvider = ({ children }) => {
     };
 
     try {
-      const response = await axios.post(`http://${window.location.hostname}:5000/api/orders`, orderData);
+      const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
       const fixedOrder = {
         ...response.data,
         items: response.data.items.map(item => ({ ...item, image: fixLocalhostUrl(item.image) }))
@@ -226,7 +227,7 @@ export const ShopProvider = ({ children }) => {
 
   const confirmDelivery = async (orderId) => {
     try {
-      const response = await axios.put(`http://${window.location.hostname}:5000/api/orders/${orderId}/status`, {
+      const response = await axios.put(`${API_BASE_URL}/orders/${orderId}/status`, {
         status: 'Delivered'
       });
       setOrders((prev) => prev.map(o => o._id === orderId || o.id === orderId ? response.data : o));
@@ -237,7 +238,7 @@ export const ShopProvider = ({ children }) => {
 
   const submitFeedback = async (feedbackData) => {
     try {
-      const response = await axios.post(`http://${window.location.hostname}:5000/api/feedback`, feedbackData);
+      const response = await axios.post(`${API_BASE_URL}/feedback`, feedbackData);
       return response.data;
     } catch (error) {
       console.error("Error submitting feedback:", error);

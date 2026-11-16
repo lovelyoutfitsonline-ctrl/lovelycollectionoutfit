@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { FiChevronLeft, FiSend, FiMessageCircle, FiPackage, FiActivity } from 'react-icons/fi';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 const ChatPage = () => {
   const { orderId } = useParams();
@@ -40,7 +41,7 @@ const ChatPage = () => {
     if (order) {
       const fetchFeedbacks = async () => {
         try {
-          const response = await axios.get(`http://${window.location.hostname}:5000/api/feedback`);
+          const response = await axios.get(`${API_BASE_URL}/feedback`);
           // Filter comments that match this specific customer name
           const customerNameFilter = order.customerName || 'Customer';
           const filtered = response.data.filter(

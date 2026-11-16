@@ -1,0 +1,7 @@
+// Backend API Configuration
+export const BACKEND_URL = import.meta.env.VITE_API_URL || 
+  (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? `http://${window.location.hostname}:5000`
+    : 'https://lovelycollectionoutfit.onrender.com');
+
+export const API_BASE_URL = `${BACKEND_URL}/api`;
