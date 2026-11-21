@@ -169,6 +169,36 @@ const TermsPage = () => {
                 Please ensure your full delivery address, pincode, landmark, and phone number are 100% accurate. 𝐋𝐨𝐯𝐞𝐥𝐲 𝐎𝐮𝐭𝐟𝐢𝐭𝐬 is not responsible for shipment delays caused by incorrect address details.
               </p>
             </div>
+
+            {/* Section 6 */}
+            <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+              <h2 className="text-sm font-bold text-gray-900 mb-2 flex items-center">
+                <span className="bg-rose-50 text-rose-600 w-6 h-6 rounded-full flex items-center justify-center mr-2 text-xs font-bold">6</span>
+                Damaged Product Policy
+              </h2>
+              <p className="mb-2 text-xs text-gray-600 leading-relaxed">
+                If you receive a damaged, defective, or incorrect-size product, please record a complete parcel-opening video from start to finish without any cuts or edits.
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-xs text-gray-700 font-medium">
+                <li>A parcel-opening video or clear photos are mandatory as proof.</li>
+                <li>If the product is damaged or the wrong size is delivered due to our mistake, we will arrange a replacement at no additional cost.</li>
+                <li>Claims without proper photo or video evidence may not be accepted.</li>
+              </ul>
+            </div>
+
+            {/* Section 7 */}
+            <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+              <h2 className="text-sm font-bold text-gray-900 mb-2 flex items-center">
+                <span className="bg-indigo-50 text-indigo-600 w-6 h-6 rounded-full flex items-center justify-center mr-2 text-xs font-bold">7</span>
+                Exchange & Return Policy
+              </h2>
+              <ul className="list-disc pl-5 space-y-1.5 text-xs text-gray-700 font-medium">
+                <li><strong className="text-gray-900">Size Exchange:</strong> If you want to exchange a product for a different size, please contact the Lovely Outfits team.</li>
+                <li><strong className="text-gray-900">Exchange Shipping Charges:</strong> If the exchange is requested for personal reasons, the customer must pay the applicable delivery charges.</li>
+                <li><strong className="text-gray-900">Return:</strong> If you request a return, the return shipping charges will be covered by Lovely Outfits, subject to our return policy.</li>
+                <li>Please contact our customer support team before initiating any return or exchange.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
